@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Orchard Piper, customer experience audit (illustrative sample)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8F3; --ink:#0A0B0D; --stone:#ECEDE6; --line:#D6D7CF; --mute:#5F615A;
+  --moment:#A07A45; --trust:#3A2A1F; --on-trust:#F7F8F3; --conv:#8A5E33; --conv-bg:#F1E7DA; --conv-ink:#5E3E1E; --loy:#A89A87; --loy-bg:#EFEAE2; --loy-ink:#5A4E41; --moment-ink:#7A5A2E; --prio:#7A1424; --on-prio:#F7F8F3; --h1:#6B4524; --h2:#7A1424; --accent:#8A5E33; --box:#EFEAE2; --box-warm:#F3EADF; --moment-bg:#7A1424; --moment-fg:#EDE4D8; --moment-sub:#D5C4B2; --note-bg:#3A2A1F; --note-fg:#EFEAE2; --note-sub:#CDBFAF; --banner-bg:#0A0B0D; --banner-ink:#F7F8F3; --on-ink-mute:#b9bbb2;
+  --font:'Jost','Futura','Century Gothic','Avenir Next',system-ui,sans-serif;
+  --banner-h:40px; --side-w:264px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --canvas:#101110; --ink:#ECEDE6; --stone:#1A1B19; --line:#30322E; --mute:#A6A89E;
+    --moment:#C9A46A; --trust:#D8C4AE; --on-trust:#161310; --conv:#C8955E; --conv-bg:#33271B; --conv-ink:#E6C7A2; --loy:#A89A87; --loy-bg:#2A2622; --loy-ink:#D6CCBF; --moment-ink:#D9B47C; --prio:#E0798A; --on-prio:#161310; --h1:#D9B48A; --h2:#E68A99; --accent:#C8955E; --box:#211E1A; --box-warm:#2A2119; --moment-bg:#5E0F1C; --moment-fg:#EFE6DA; --moment-sub:#D5C4B2; --note-bg:#2A2119; --note-fg:#EFE6DA; --note-sub:#CDBFAF; --banner-bg:#ECEDE6; --banner-ink:#101110; --on-ink-mute:#4a4c46; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --canvas:#101110; --ink:#ECEDE6; --stone:#1A1B19; --line:#30322E; --mute:#A6A89E;
+  --moment:#C9A46A; --trust:#D8C4AE; --on-trust:#161310; --conv:#C8955E; --conv-bg:#33271B; --conv-ink:#E6C7A2; --loy:#A89A87; --loy-bg:#2A2622; --loy-ink:#D6CCBF; --moment-ink:#D9B47C; --prio:#E0798A; --on-prio:#161310; --h1:#D9B48A; --h2:#E68A99; --accent:#C8955E; --box:#211E1A; --box-warm:#2A2119; --moment-bg:#5E0F1C; --moment-fg:#EFE6DA; --moment-sub:#D5C4B2; --note-bg:#2A2119; --note-fg:#EFE6DA; --note-sub:#CDBFAF; --banner-bg:#ECEDE6; --banner-ink:#101110; --on-ink-mute:#4a4c46; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(var(--banner-h) + env(safe-area-inset-top,0px) + 24px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;min-height:100vh;min-height:100dvh}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+#main:focus,#main:focus-visible{outline:none}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Banner */
+.banner{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--banner-bg);color:var(--banner-ink);padding-top:env(safe-area-inset-top,0px)}
+.banner p{margin:0;height:var(--banner-h);display:flex;align-items:center;gap:12px;padding:0 24px;font-size:14px;letter-spacing:.02em}
+.banner svg{flex:none}
+
+/* Logos */
+.logo-mono{width:44px;height:44px}
+.logo-wm{width:128px;height:auto}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo{filter:invert(1)}}
+:root[data-theme="dark"] .logo{filter:invert(1)}
+
+/* Shell */
+.shell{display:grid;grid-template-columns:var(--side-w) minmax(0,1fr);padding-top:var(--banner-h)}
+.side{position:sticky;top:calc(var(--banner-h) + env(safe-area-inset-top,0px));height:calc(100vh - var(--banner-h));height:calc(100dvh - var(--banner-h) - env(safe-area-inset-top,0px));overflow-y:auto;border-right:1px solid var(--line);padding:28px 22px 32px;display:flex;flex-direction:column;gap:28px}
+.brand{display:flex;gap:14px;align-items:center;text-decoration:none}
+.brand-t{display:flex;flex-direction:column;gap:6px}
+.brand-t span{font-size:13px;color:var(--mute);line-height:1.2}
+.nav ol{list-style:none;margin:0;padding:0}
+.nav a{display:grid;grid-template-columns:30px 1fr;align-items:baseline;padding:8px 10px 8px 0;text-decoration:none;font-size:15.5px;line-height:1.3;border-left:2px solid transparent;padding-left:10px;margin-left:-12px}
+.nav a .no{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.nav a:hover{background:var(--stone)}
+.nav a[aria-current="page"]{border-left-color:var(--ink);font-weight:500}
+.nav .sub a{grid-template-columns:30px 1fr;font-size:14px;padding-top:5px;padding-bottom:5px;color:var(--mute)}
+.nav .sub a[aria-current="page"]{color:var(--ink)}
+.side-foot{margin-top:auto;font-size:13px;color:var(--mute);line-height:1.45}
+.side-foot p{margin:0 0 10px}
+.side-foot strong{color:var(--ink);font-weight:500}
+.credit{display:flex;align-items:center;gap:8px}
+.main{min-width:0;padding:48px clamp(24px,4vw,56px) 160px}
+.content{max-width:980px;container-type:inline-size}
+.content.wide{max-width:none}
+@container (max-width:860px){.map{display:none}.mstack{display:block}}
+.topbar{display:none}
+.menu{display:none}
+
+/* Page header */
+.eyebrow{font-size:14px;color:var(--mute);margin:0 0 14px}
+h1{font-weight:300;font-size:clamp(32px,4.4vw,52px);line-height:1.08;letter-spacing:-.015em;margin:0 0 24px;max-width:20ch}
+.covers{border-left:2px solid var(--ink);padding:2px 0 2px 18px;margin:0 0 48px;max-width:64ch}
+.covers h2{font-size:14px;font-weight:500;margin:0 0 4px;letter-spacing:0}
+.covers p{margin:0;color:var(--mute)}
+.sec{margin:0 0 56px}
+.sec>h2{font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2;margin:0 0 8px;letter-spacing:-.005em}
+.sec>.lead{color:var(--mute);margin:0 0 24px;max-width:64ch}
+p.body{max-width:64ch;margin:0 0 14px}
+
+/* Overview */
+.strip{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink)}
+.strip div{padding:18px 12px 4px 0}
+.strip div+div{padding-left:14px;border-left:1px solid var(--line)}
+.strip b{display:block;font-weight:300;font-size:40px;line-height:1;letter-spacing:-.02em}
+.strip span{display:block;font-size:14px;color:var(--mute);margin-top:8px}
+.dates{margin:24px 0 0;font-size:15px;color:var(--mute)}
+.dates strong{color:var(--ink);font-weight:500}
+.use{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--ink);padding-top:20px}
+.use h3{font-weight:500;font-size:16px;margin:0 0 6px}
+.use p{margin:0;color:var(--mute);font-size:15.5px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{display:grid;grid-template-columns:36px 1fr;gap:4px 8px;padding:18px 20px;border:1px solid var(--line);text-decoration:none}
+.card:hover{border-color:var(--ink)}
+.card .no{font-size:13px;color:var(--mute);padding-top:3px}
+.card b{font-weight:400;font-size:19px;line-height:1.25}
+.card span.d{grid-column:2;color:var(--mute);font-size:15px;line-height:1.4}
+
+/* Ranked list */
+.plist{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.plist li{border-bottom:1px solid var(--line)}
+.plist a{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:start;padding:16px 0;text-decoration:none}
+.plist a:hover .pt-title{text-decoration:underline;text-underline-offset:3px}
+.plist .rank{font-weight:300;font-size:30px;line-height:1;color:var(--prio)}
+.pt-title{display:block;font-size:17px;line-height:1.3}
+.pt-sub{display:block;font-size:14px;color:var(--mute);margin-top:4px}
+
+/* Status */
+.status{display:inline-flex;align-items:center;gap:8px;font-size:14px;white-space:nowrap}
+.dot{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block;flex:none}
+.dot.on,.dot.done{background:var(--ink)}
+.dot.close,.dot.prog{background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}
+
+/* Method */
+.timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink)}
+.timeline li{padding:16px 16px 0 0}
+.timeline li+li{padding-left:16px;border-left:1px solid var(--line)}
+.timeline b{display:block;font-weight:500;font-size:15px;margin-bottom:6px}
+.timeline span{display:block;font-size:15px;color:var(--mute);line-height:1.45}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--ink)}
+.methods div{padding:18px 0;border-bottom:1px solid var(--line)}
+.methods b{display:block;font-weight:300;font-size:32px;line-height:1}
+.methods h3{font-weight:500;font-size:16px;margin:8px 0 4px}
+.methods p{margin:0;color:var(--mute);font-size:15.5px}
+.defs{display:grid;grid-template-columns:200px minmax(0,1fr);border-top:1px solid var(--ink);margin:0}
+.defs dt,.defs dd{padding:14px 0;border-bottom:1px solid var(--line);margin:0}
+.defs dt{font-weight:500;padding-right:20px;display:flex;gap:10px;align-items:flex-start}
+.defs dt .mk,.defs dt svg{margin-top:7px}
+.defs dd{color:var(--mute);max-width:64ch}
+.plain{margin:0;padding:0 0 0 20px;max-width:64ch}
+.plain li{margin:0 0 8px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+.tbl th{text-align:left;font-weight:500;font-size:14px;padding:12px 16px 12px 0;border-bottom:1px solid var(--ink);vertical-align:bottom}
+.tbl td{padding:14px 16px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td.m{color:var(--mute)}
+.tbl a{text-underline-offset:3px}
+.tbl .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Tags and marks */
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:13px;padding:3px 9px;border:1px solid var(--ink);white-space:nowrap}
+.tag.trust{background:var(--trust);border-color:var(--trust);color:var(--on-trust)}
+.tag.conversion{background:var(--conv-bg);border-color:var(--conv);color:var(--conv-ink)}
+.tag.loyalty{background:var(--loy-bg);border-color:var(--loy);color:var(--loy-ink)}
+.m-chip{font-size:13px;padding:3px 9px;border:1px solid var(--line);color:var(--mute);white-space:nowrap}
+.mk{display:inline-block;width:9px;height:9px;border:1px solid var(--ink);flex:none}
+.mk.t{background:var(--trust);border-color:var(--trust)}
+.mk.c{background:var(--conv-bg);border-color:var(--conv)}
+.mk.l{background:var(--loy);border-color:var(--loy)}
+.mk.hd{border-color:var(--line);border-radius:50%}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px;font-size:14px;color:var(--mute)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);background:var(--ink);color:var(--canvas);padding:10px 16px;font-size:15px;cursor:pointer;text-decoration:none}
+.btn.ghost{background:none;color:var(--ink)}
+.btn:hover{opacity:.85}
+.linkbtn{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:15px;color:var(--ink)}
+
+/* Journey map */
+.map{display:grid;grid-template-columns:104px repeat(8,minmax(0,1fr));border:1px solid var(--ink)}
+.map>div{border-left:1px solid var(--line);border-top:1px solid var(--line);min-width:0}
+.map .c0{border-left:0}
+.map .r0{border-top:0}
+.mhead{background:none;border:0;width:100%;height:100%;text-align:left;padding:12px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.mhead:hover{background:var(--stone)}
+.mhead[aria-expanded="true"]{background:var(--ink);color:var(--canvas)}
+.mhead .hn{font-size:14px;line-height:1.25;overflow-wrap:break-word;hyphens:auto}
+.mhead .hc{font-size:12px;color:var(--mute);line-height:1.3}
+.mhead[aria-expanded="true"] .hc{color:var(--on-ink-mute)}
+.mconfl{padding:12px 10px;font-size:12.5px;line-height:1.3;color:var(--mute)}
+.mconfl b{display:block;font-weight:500;color:var(--ink);font-size:14px;margin-bottom:4px}
+.mconf{grid-column:2/-1;padding:4px 0 0}
+.mconf svg{display:block;width:100%;height:auto}
+.mlane{padding:12px 10px;font-size:14px;line-height:1.25}
+.mcell{padding:8px 5px;display:flex;flex-direction:column;gap:6px}
+.tp{overflow-wrap:break-word;hyphens:auto;display:flex;gap:6px;align-items:flex-start;width:100%;text-align:left;font-size:12.5px;line-height:1.25;padding:6px;border:1px solid var(--line);background:var(--canvas);cursor:pointer}
+.tp>span{min-width:0}
+.tp .mk,.tp svg{flex:none;margin-top:2px}
+.tp.fr{border-color:var(--ink)}
+.tp.hd{color:var(--mute)}
+.tp:hover{background:var(--stone)}
+.tp[aria-pressed="true"]{background:var(--ink);color:var(--canvas);border-color:var(--ink)}
+.tp[aria-pressed="true"] .mk{border-color:var(--canvas)}
+.tp[aria-pressed="true"] .mk.t{background:var(--canvas)}
+.mstack{display:none}
+.mst{border-top:1px solid var(--ink)}
+.mst .mhead{padding:14px 0;flex-direction:row;justify-content:space-between;align-items:baseline;gap:12px}
+.mst .mhead[aria-expanded="true"]{padding:14px 10px}
+.mst ul{list-style:none;margin:0;padding:0 0 16px;display:flex;flex-direction:column;gap:6px}
+.mst .tp{font-size:14.5px;padding:9px 10px}
+.mst .tp small{display:block;font-size:12.5px;color:var(--mute);margin-top:2px}
+.mst .tp[aria-pressed="true"] small{color:var(--on-ink-mute)}
+.mconf-m{margin-bottom:14px}
+.mconf-m svg{display:block;width:100%;height:auto}
+.panel{border:1px solid var(--ink);border-top:0;padding:24px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px}
+.panel[hidden]{display:none}
+.mst+.panel,.mstack .panel{border-top:1px solid var(--ink);margin-bottom:16px}
+.panel h3{font-weight:400;font-size:22px;margin:0 0 6px}
+.panel p{margin:0;color:var(--mute);max-width:56ch}
+.panel .ph{font-size:14px;font-weight:500;color:var(--ink);margin:16px 0 0}
+.panel ul.simple{margin:10px 0 0;padding:0;list-style:none}
+.panel ul.simple li{display:flex;gap:10px;align-items:flex-start;font-size:15px;margin-top:6px}
+.panel ul.simple li svg{flex:none;margin-top:5px}
+.panel .btn{margin-top:16px}
+.plinks{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.plinks a{display:flex;gap:10px;align-items:flex-start;text-decoration:none;border:1px solid var(--line);padding:10px 12px;font-size:15px;line-height:1.3}
+.plinks a:hover{border-color:var(--ink)}
+.plinks .mk,.plinks svg{flex:none;margin-top:4px}
+.plinks small{display:block;color:var(--mute);font-size:13px;margin-top:3px}
+.split{display:flex;flex-direction:column;gap:6px;font-size:15px;margin-top:8px}
+.split div{display:flex;align-items:center;gap:10px}
+
+/* Working well */
+.stage-group{margin:0 0 36px}
+.stage-group>h3{font-weight:400;font-size:20px;margin:0 0 4px;padding-bottom:10px;border-bottom:1px solid var(--ink);display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.stage-group>h3 small{font-size:14px;color:var(--mute)}
+.win{padding:20px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px;scroll-margin-top:calc(var(--banner-h) + 24px)}
+.win h4{font-weight:400;font-size:19px;line-height:1.25;margin:0 0 10px;display:flex;gap:10px;align-items:flex-start}
+.win h4 svg{flex:none;margin-top:6px}
+.win p{margin:0 0 10px;max-width:60ch}
+.win .keep{font-size:15px;color:var(--mute);margin:0}
+.win .keep b{color:var(--ink);font-weight:500}
+
+/* Findings */
+.filters{border:1px solid var(--ink);padding:14px 18px 8px;margin-bottom:12px}
+.fgroup{display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:start;padding:8px 0}
+.fgroup+.fgroup{border-top:1px solid var(--line)}
+.fgroup .flabel{font-size:15px;padding-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:none;padding:6px 12px;font-size:15px;cursor:pointer;line-height:1.3}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--canvas);border-color:var(--ink)}
+.count{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;font-size:15px;color:var(--mute);margin:0 0 8px}
+.findings{border-top:1px solid var(--ink)}
+.finding{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:32px;padding:28px 0;border-bottom:1px solid var(--line);scroll-margin-top:calc(var(--banner-h) + 24px)}
+.flash{animation:flash 1.8s ease}
+@keyframes flash{0%,45%{background:var(--stone)}100%{background:transparent}}
+.fnum{font-size:14px;color:var(--mute);display:flex;gap:10px;align-items:center}
+.prio{border:1px solid var(--prio);padding:1px 8px;font-size:13px;color:var(--prio)}
+.finding h3{font-weight:400;font-size:22px;line-height:1.22;margin:8px 0 14px}
+.seen{margin-top:14px;font-size:14px;color:var(--mute)}
+.evidence h4,.rec h4{font-weight:500;font-size:14px;margin:0 0 6px}
+.evidence p{margin:0 0 20px;max-width:62ch}
+.rec{border:1px solid var(--line);padding:16px 18px}
+.rec.moment{border-color:var(--moment)}
+.rec.moment h4{color:var(--moment-ink);display:flex;align-items:center;gap:8px}
+.rec p{margin:0 0 10px;max-width:60ch}
+.rec .own{font-size:14px;color:var(--mute);margin:0}
+.empty{padding:32px 0;border-bottom:1px solid var(--line)}
+.empty p{margin:0 0 8px}
+
+/* Actions */
+.prio-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.matrix svg{width:100%;height:auto;display:block;overflow:visible}
+.matrix a{cursor:pointer}
+.rule{font-size:15px;color:var(--mute);margin:16px 0 0;max-width:56ch}
+.checkin{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;background:var(--stone);padding:14px 16px;margin:0 0 16px;font-size:15px}
+.checkin strong{font-weight:500}
+.skey{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--mute)}
+.skey span{display:inline-flex;align-items:center;gap:8px}
+
+/* Scorecard */
+.toggle{display:inline-flex;border:1px solid var(--ink);margin-bottom:24px}
+.toggle button{background:none;border:0;padding:10px 18px;font-size:15px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--canvas)}
+.measures{border-top:1px solid var(--ink)}
+.measure{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.measure h3{font-weight:400;font-size:18px;line-height:1.3;margin:0 0 4px}
+.measure .unit{font-size:14px;color:var(--mute)}
+.measure .src{font-size:13.5px;color:var(--mute);margin-top:6px}
+.track{position:relative;height:44px}
+.track .rail{position:absolute;left:0;right:0;top:22px;height:1px;background:var(--line)}
+.track .pt{position:absolute;top:22px;transform:translate(-50%,-50%);transition:left .6s cubic-bezier(.2,.7,.2,1),opacity .4s}
+.pt.audit{width:13px;height:13px;border:1.5px solid var(--ink);border-radius:50%;background:var(--canvas)}
+.pt.now{width:13px;height:13px;background:var(--ink);border-radius:50%}
+.pt.target{width:1.5px;height:26px;background:var(--ink)}
+.track .fill{position:absolute;top:21.5px;height:2px;background:var(--ink);transition:left .6s cubic-bezier(.2,.7,.2,1),width .6s cubic-bezier(.2,.7,.2,1),opacity .4s}
+.readout{font-size:15px;display:grid;grid-template-columns:auto auto;gap:2px 14px;justify-content:start;margin:0}
+.readout dt{color:var(--mute)}
+.readout dd{margin:0}
+.readout .status{grid-column:1/-1;margin-top:6px;font-weight:500}
+
+/* Parties */
+.pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pcard{display:block;border:1px solid var(--line);padding:20px;text-decoration:none}
+.pcard:hover{border-color:var(--ink)}
+.pcard b{display:block;font-weight:400;font-size:21px;margin-bottom:10px}
+.pcard .nums{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--mute)}
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--stone);padding:16px;margin:0 0 40px}
+.share p{margin:0;flex:1 1 100%;font-size:15px}
+.share input{flex:1 1 280px;min-width:0;font:inherit;font-size:14px;padding:9px 10px;border:1px solid var(--line);background:var(--canvas);color:var(--ink)}
+.pstrip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);margin-bottom:48px}
+.pstrip div{padding:16px 12px 4px 0}
+.pstrip div+div{padding-left:14px;border-left:1px solid var(--line)}
+.pstrip b{display:block;font-weight:300;font-size:36px;line-height:1}
+.pstrip span{display:block;font-size:14px;color:var(--mute);margin-top:6px}
+.tplist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--ink)}
+.tplist div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.tplist div span:first-child{display:flex;gap:10px;align-items:center}
+.tplist small{color:var(--mute);font-size:13.5px;text-align:right}
+
+/* Resources */
+.rlist{border-top:1px solid var(--ink)}
+.rlist div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
+.rlist b{font-weight:400;font-size:17px}
+.rlist p{grid-column:1;margin:0;color:var(--mute);font-size:15px}
+.rlist .inc{grid-row:1/3;grid-column:2;font-size:13px;color:var(--mute);border:1px solid var(--line);padding:3px 9px;align-self:start;white-space:nowrap}
+
+/* Prev next */
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:72px;border-top:1px solid var(--ink);padding-top:20px}
+.pn a{text-decoration:none;display:block;padding:14px 0}
+.pn a small{display:block;font-size:13px;color:var(--mute)}
+.pn a span{font-size:19px}
+.pn a:hover span{text-decoration:underline;text-underline-offset:4px}
+.pn .next{text-align:right;grid-column:2}
+.foot{margin-top:40px;font-size:13.5px;color:var(--mute);max-width:70ch}
+
+/* Map chips, inline marker */
+.map .tp{display:block}
+.map .tp>.mk,.map .tp>svg{display:inline-block;vertical-align:0;margin:0 5px 0 0}
+.map .tp>span{display:inline}
+
+/* Responsive */
+@media (max-width:1360px){:root{--side-w:236px}.main{padding-left:36px;padding-right:36px}}
+@media (max-width:1000px){
+  .shell{display:block}
+  .side{display:none}
+  .topbar{display:flex;position:sticky;top:calc(var(--banner-h) + env(safe-area-inset-top,0px));z-index:40;background:var(--canvas);border-bottom:1px solid var(--line);align-items:center;justify-content:space-between;gap:12px;padding:10px 20px}
+  .topbar .tb-l{display:flex;align-items:center;gap:12px;min-width:0}
+  .topbar .tb-l img{width:32px;height:32px}
+  .topbar .tb-l span{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .menubtn{border:1px solid var(--ink);background:none;padding:7px 14px;font-size:15px;cursor:pointer;flex:none}
+  .menu{position:fixed;left:0;right:0;bottom:0;top:calc(var(--banner-h) + env(safe-area-inset-top,0px));z-index:50;background:var(--canvas);overflow-y:auto;padding:16px 20px calc(40px + env(safe-area-inset-bottom,0px))}
+  .menu.open{display:block}
+  .menu .nav a{font-size:17px;padding-top:11px;padding-bottom:11px;margin-left:0}
+  .menu .nav .sub a{font-size:15.5px;padding-top:8px;padding-bottom:8px}
+  .menu .side-foot{margin-top:24px}
+  .main{padding:32px 20px 140px}
+  html{scroll-padding-top:calc(var(--banner-h) + env(safe-area-inset-top,0px) + 76px)}
+  .finding,.win,.panel{scroll-margin-top:calc(var(--banner-h) + 76px)}
+  .map{display:none}
+  .mstack{display:block}
+  .prio-grid{grid-template-columns:1fr;gap:32px}
+  .matrix{max-width:520px}
+  .measure{grid-template-columns:1fr 1fr}
+  .measure .track{grid-column:1/-1;order:3}
+}
+@media (max-width:720px){
+  :root{--banner-h:52px}
+  body{font-size:16px}
+  .banner p{padding:0 20px;font-size:13px;line-height:1.35}
+  .covers{margin-bottom:36px}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .strip div{padding:14px 0 12px!important;border-left:0!important;border-bottom:1px solid var(--line)}
+  .strip div:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}
+  .strip div:nth-last-child(-n+2){border-bottom:0}
+  .strip b{font-size:34px}
+  .use,.cards,.methods,.pcards,.tplist{grid-template-columns:1fr}
+  .use{gap:18px}
+  .timeline{grid-template-columns:1fr}
+  .timeline li{padding:14px 0!important;border-left:0!important;border-bottom:1px solid var(--line)}
+  .defs{grid-template-columns:1fr}
+  .defs dt{border-bottom:0;padding-bottom:2px}
+  .defs dd{padding-top:0}
+  .panel{grid-template-columns:1fr;gap:16px;padding:20px}
+  .win,.finding{grid-template-columns:1fr;gap:16px}
+  .fgroup{grid-template-columns:1fr;gap:8px}
+  .fgroup .flabel{padding-top:0}
+  .measure{grid-template-columns:1fr;gap:10px}
+  .measure .track{order:0}
+  .toggle{display:flex}
+  .toggle button{flex:1;padding:10px 8px}
+  .pstrip{grid-template-columns:repeat(2,1fr)}
+  .pstrip div{border-left:0!important;padding-left:0!important;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .pstrip div:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}
+  .plist a{grid-template-columns:32px 1fr}
+  .plist a .status{grid-column:2}
+  .pn{grid-template-columns:1fr}
+  .pn .next{grid-column:1}
+  .tbl.stack thead{display:none}
+  .tbl.stack,.tbl.stack tbody,.tbl.stack tr,.tbl.stack td{display:block;width:100%}
+  .tbl.stack tr{border-bottom:1px solid var(--line);padding:12px 0}
+  .tbl.stack tr:first-child{border-top:1px solid var(--ink)}
+  .tbl.stack td{border:0;padding:3px 0}
+  .tbl.stack td[data-l]::before{content:attr(data-l);display:block;font-size:12.5px;color:var(--mute)}
+  .tbl.stack td.lead-cell{font-size:17px;padding-bottom:6px}
+  .tbl.stack td[data-l]{display:inline-block;width:auto;margin:0 20px 6px 0;vertical-align:top}
+  .tbl.stack td.num{display:block;font-size:14px;color:var(--mute)}
+  .tbl.stack td.num::before{display:inline;margin-right:5px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Accent layer */
+h1{color:var(--h1)}
+.eyebrow{color:var(--accent)}
+.covers{background:var(--box);border-left:3px solid var(--moment);padding:16px 20px}
+.covers h2{color:var(--accent)}
+.covers p{color:var(--ink)}
+.sec>h2,.group-h,.stage-group>h3{color:var(--h2)}
+.stage-group>h3{border-bottom-color:var(--h2)}
+.strip b,.pstrip b,.methods b{color:var(--accent)}
+.strip,.pstrip,.methods,.timeline,.use,.defs,.findings,.plist,.measures,.rlist,.tplist,.pn{border-top-color:var(--accent)!important}
+.dates strong,.side-foot strong,.checkin strong{color:var(--accent)}
+.timeline b,.use h3,.methods h3,.evidence h4{color:var(--accent)}
+.defs dt{color:var(--h1)}
+.note{background:var(--note-bg);color:var(--note-fg);padding:28px 30px;margin:0 0 56px}
+.note h2{color:var(--note-fg);font-weight:400;font-size:clamp(22px,2.4vw,28px);margin:0 0 12px}
+.note p{max-width:64ch;margin:0 0 12px;color:var(--note-fg)}
+.note p:last-child{margin-bottom:0;color:var(--note-sub)}
+.rec{background:var(--box);border-color:var(--box)}
+.rec h4{color:var(--accent)}
+.rec.moment{background:var(--moment-bg);border-color:var(--moment-bg);color:var(--moment-fg)}
+.rec.moment h4{color:var(--moment-fg)}
+.rec.moment .own{color:var(--moment-sub)}
+.win .keep b{color:var(--accent)}
+.checkin,.share{background:var(--box-warm);border-left:3px solid var(--accent)}
+.panel{background:var(--box)}
+.nav a[aria-current="page"]{border-left-color:var(--prio);color:var(--h2)}
+.nav a[aria-current="page"] .no{color:var(--h2)}
+.card:hover,.pcard:hover,.plinks a:hover{border-color:var(--accent)}
+.card b,.pcard b{color:var(--h1)}
+.card .no{color:var(--accent)}
+.btn{background:var(--note-bg);border-color:var(--note-bg);color:var(--note-fg)}
+.btn.ghost{background:none;color:var(--h1);border-color:var(--h1)}
+.tbl th{border-bottom-color:var(--accent);color:var(--accent)}
+.pn a span{color:var(--h1)}
+.dm{display:inline-block;background:var(--moment-bg);color:var(--moment-fg);padding:2px 8px;font-size:13px;line-height:1.35}
+@media print{.banner{position:static}.shell{display:block;padding-top:0}.side,.topbar,.menu,.filters,.share,.pn{display:none}}
+</style>
+</head>
+<body>
+<div class="banner" role="note"><p><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="12" x2="12" y2="4" stroke="currentColor" stroke-width="1.5"/></svg>Illustrative sample. All findings and figures are fictional.</p></div>
+
+<div class="shell">
+  <aside class="side" aria-label="Document navigation">
+    <a class="brand" href="#/overview">
+      <img class="logo logo-mono" src="data:image/png;base64,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" alt="" width="44" height="44">
+      <span class="brand-t"><span>Customer experience audit for</span><img class="logo logo-wm" src="data:image/png;base64,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" alt="Orchard Piper" width="128" height="15"></span>
+    </a>
+    <nav class="nav" id="navSide"></nav>
+    <div class="side-foot" id="footSide"></div>
+  </aside>
+
+  <div class="topbar">
+    <div class="tb-l"><img class="logo" src="data:image/png;base64,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" alt="Orchard Piper" width="32" height="32"><span id="tbTitle">Overview</span></div>
+    <button class="menubtn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+  <div class="menu" id="menu"><nav class="nav" id="navMenu"></nav><div class="side-foot" id="footMenu"></div></div>
+
+  <main class="main" id="main" tabindex="-1"><div class="content" id="page"></div></main>
+</div>
+
+<script>
+(function(){
+var STAGES=[
+ {k:'awareness',n:'Awareness',t:'Site hoarding and signage, press, the main site and every project page, social channels, word of mouth, and how AI assistants describe Orchard Piper when a buyer asks.'},
+ {k:'enquiry',n:'Enquiry',t:'Registration forms on every project page, direct calls, agent email replies and social media enquiries, tested with two buyer personas across more than one agency.'},
+ {k:'sales',n:'Sales experience',t:'Display suite visits, completed property inspections, and every agent follow-up for thirty days after.'},
+ {k:'changes',n:'Purchaser changes',t:'Variations and selections, from the first request to written confirmation, and how clearly the cutoff before construction is explained.'},
+ {k:'construction',n:'Construction',t:'Every update a purchaser receives across two to three years, how often it arrives, who sends it, and what happens when a date moves.'},
+ {k:'handover',n:'Handover',t:'The pre-settlement inspection, defects from first logging to closure, and the moment keys change hands.'},
+ {k:'post',n:'Post-settlement',t:'Building management, concierge, and whether the hotel-style living promised at sale arrives once people move in.'},
+ {k:'advocacy',n:'Advocacy',t:'Referrals, reviews, and whether past buyers are invited back before the next release.'}
+];
+var PARTIES=[
+ {k:'orchard-piper',n:'Orchard Piper'},
+ {k:'selling-agent',n:'Selling agent'},
+ {k:'builder',n:'Builder'},
+ {k:'development-manager',n:'Development manager'},
+ {k:'building-management',n:'Building management'}
+];
+var TAGS=[{k:'trust',n:'Trust'},{k:'conversion',n:'Conversion'},{k:'loyalty',n:'Loyalty'}];
+var LIFE=[{k:'now-selling',n:'Now Selling'},{k:'coming-soon',n:'Coming Soon'},{k:'complete',n:'Complete'}];
+
+var F=[
+ {id:1,s:'awareness',t:'trust',p:'orchard-piper',l:['now-selling','coming-soon','complete'],seen:4,i:3,e:4,
+  h:'Seven project pages speak in three different visual languages.',
+  ev:'Typography, render style and brochure templates change between projects launched in different years. Four of the seven pages pair typefaces the main site doesn\u2019t use, so the portfolio reads as several developers.',
+  r:'fix',rt:'Set one project page template and one type system. Bring Complete projects across first, since they carry the proof of delivery.',o:'Head of Design',d:'Friday 29 January 2027'},
+ {id:2,s:'awareness',t:'conversion',p:'selling-agent',l:['now-selling','coming-soon'],seen:2,i:3,e:1,
+  h:'The number on the hoarding reaches a switchboard.',
+  ev:'Hoarding at two sites lists an agency\u2019s general line. Both test calls reached reception, and the caller was asked to spell the project name before being put through.',
+  r:'fix',rt:'Give each project a direct line answered by the named sales lead, printed on the hoarding and the project page.',o:'Selling agency principal',d:'Tuesday 15 December 2026'},
+ {id:3,s:'awareness',t:'trust',p:'orchard-piper',l:['complete'],seen:3,i:4,e:2,
+  h:'Finished buildings go quiet online at the moment they prove the most.',
+  ev:'Complete project pages stop at the final render. There is no photography of the delivered building, no completion date and nothing from the people who live there.',
+  r:'moment',rt:'Photograph each building as delivered and set it beside the original render, so a new buyer sees a promise kept.',o:'Head of Design',d:'Friday 26 February 2027'},
+ {id:4,s:'enquiry',t:'conversion',p:'selling-agent',l:['now-selling'],seen:3,i:5,e:1,
+  h:'A weekend enquiry waits until Monday afternoon.',
+  ev:'Four of the eight mystery enquiries went in on a weekend. The median first reply took 41 hours, and every reply came from a team address with no name attached.',
+  r:'fix',rt:'Weekend cover with a first reply inside four business hours, signed by the person who will follow up.',o:'Selling agency principal',d:'Tuesday 15 December 2026'},
+ {id:5,s:'enquiry',t:'conversion',p:'orchard-piper',l:['now-selling','coming-soon','complete'],seen:7,i:3,e:1,
+  h:'Every project asks a buyer something different.',
+  ev:'Registration forms run from three fields to eleven. Two ask for budget before anything else, and one gives no way to say how the buyer prefers to be contacted.',
+  r:'fix',rt:'One five-field form used on every project, including preferred contact method and a free-text question.',o:'Sales and marketing lead',d:'Friday 29 January 2027'},
+ {id:6,s:'enquiry',t:'trust',p:'selling-agent',l:['now-selling'],seen:2,i:4,e:2,
+  h:'Replies answer questions the buyer never asked.',
+  ev:'Three of eight replies sent the standard brochure and ignored the specific question about car parking or storage. One quoted a price range for the wrong configuration.',
+  r:'fix',rt:'A reply standard that answers the buyer\u2019s question in the first line, with the brochure attached as support.',o:'Selling agency principal',d:'Friday 15 January 2027'},
+ {id:7,s:'enquiry',t:'loyalty',p:'orchard-piper',l:['complete'],seen:2,i:4,e:2,
+  h:'An existing owner enquires and is treated as a stranger.',
+  ev:'A persona who said they already owned in a completed building received the same reply as a first-time enquiry, with no acknowledgement of the earlier purchase.',
+  r:'fix',rt:'Ask on the form whether the buyer has purchased before, and route returning owners to Orchard Piper before the agency.',o:'Sales and marketing lead',d:'Friday 26 February 2027'},
+ {id:8,s:'sales',t:'conversion',p:'selling-agent',l:['now-selling'],seen:2,i:5,e:1,
+  h:'Follow-up stops after the first visit.',
+  ev:'After display suite visits, two of four personas received one follow-up and nothing more within fourteen days. None of the follow-ups mentioned anything discussed in the suite.',
+  r:'fix',rt:'A follow-up within 48 hours that recalls the conversation, then an agreed rhythm through to thirty days.',o:'Selling agency principal',d:'Tuesday 15 December 2026'},
+ {id:9,s:'sales',t:'trust',p:'selling-agent',l:['now-selling'],seen:2,i:4,e:2,
+  h:'Two agents gave two answers about the same appliance.',
+  ev:'On separate visits, agents described different appliance specifications for the same residence type. Neither offered to confirm in writing.',
+  r:'fix',rt:'One specification sheet maintained by Orchard Piper and carried by every agent, with a named contact for anything it doesn\u2019t cover.',o:'Development manager',d:'Friday 29 January 2027'},
+ {id:10,s:'sales',t:'loyalty',p:'orchard-piper',l:['now-selling'],seen:1,i:3,e:4,
+  h:'The display suite shows the finished home and leaves out the years in between.',
+  ev:'Finishes are presented beautifully. Nothing explains what happens between deposit and keys, and in three of four visits the buyer asked the agent about timing.',
+  r:'moment',rt:'A quiet element in the suite that shows the path after contract, who the buyer will deal with at each stage and roughly when.',o:'Head of Design',d:'Wednesday 31 March 2027'},
+ {id:11,s:'changes',t:'trust',p:'development-manager',l:['now-selling'],seen:2,i:5,e:1,
+  h:'Buyers learn about the change cutoff after it has passed.',
+  ev:'Two recent purchasers described the variation deadline as a surprise. The contract pack mentions it once, on page 31.',
+  r:'fix',rt:'State the cutoff at contract signing, then remind the buyer 60 days and 14 days before it closes.',o:'Development manager',d:'Friday 29 January 2027'},
+ {id:12,s:'changes',t:'conversion',p:'development-manager',l:['now-selling'],seen:1,i:3,e:2,
+  h:'One finish change passed through four hands before anyone confirmed it.',
+  ev:'A single selection change moved between agent, Orchard Piper and builder before confirmation, 23 days from request to answer.',
+  r:'fix',rt:'One change request form, one owner, and written confirmation within ten business days.',o:'Development manager',d:'Friday 26 February 2027'},
+ {id:13,s:'construction',t:'trust',p:'orchard-piper',l:['now-selling'],seen:3,i:4,e:2,
+  h:'Updates arrive when there is news, and silence fills the gaps.',
+  ev:'Across projects under construction, the time between purchaser updates ranged from five weeks to nineteen. The longest gaps fell during slow structural stages.',
+  r:'fix',rt:'A set rhythm of one update every six weeks, kept even when the update is short.',o:'Sales and marketing lead',d:'Friday 29 January 2027'},
+ {id:14,s:'construction',t:'trust',p:'builder',l:['now-selling'],seen:1,i:5,e:1,
+  h:'A delay reached purchasers through their agent first.',
+  ev:'Two purchasers heard about a program change from their selling agent before Orchard Piper or the builder had told them anything.',
+  r:'fix',rt:'A delay protocol. When a milestone moves, the builder tells Orchard Piper within two business days, and Orchard Piper tells purchasers before anyone else does.',o:'Development manager',d:'Tuesday 15 December 2026'},
+ {id:15,s:'construction',t:'loyalty',p:'orchard-piper',l:['now-selling'],seen:3,i:4,e:3,
+  h:'Two years of waiting pass with nothing to mark them.',
+  ev:'No project reviewed marks a milestone for purchasers between contract and the pre-settlement inspection.',
+  r:'moment',rt:'Mark topping out and façade completion with a private site visit or a printed record sent to each purchaser.',o:'Head of Design',d:'Friday 30 April 2027'},
+ {id:16,s:'handover',t:'trust',p:'builder',l:['complete'],seen:3,i:5,e:2,
+  h:'The same defect gets reported twice.',
+  ev:'Three recent purchasers described resubmitting items already raised. Defects closed an average of 47 days after inspection, against a 30 day expectation.',
+  r:'fix',rt:'One shared defects log the purchaser can see, each item with an owner and a close date.',o:'Builder\u2019s site manager',d:'Friday 29 January 2027'},
+ {id:17,s:'handover',t:'trust',p:'development-manager',l:['complete'],seen:2,i:4,e:3,
+  h:'Nobody at the inspection can speak to the design.',
+  ev:'Questions about joinery and stone at the pre-settlement inspection were deferred to email, because only the builder\u2019s representative attended.',
+  r:'moment',rt:'Open each inspection with twenty minutes from Orchard Piper\u2019s design team, then hand to the builder for defects.',o:'Development manager',d:'Wednesday 31 March 2027'},
+ {id:18,s:'handover',t:'trust',p:'orchard-piper',l:['complete'],seen:2,i:4,e:3,
+  h:'Keys change hands across a site office counter.',
+  ev:'In two of three recent handovers, keys were collected from a builder\u2019s site office or agency reception.',
+  r:'moment',rt:'Hand over in the residence itself, with the keys, a manual for the home, and the building manager introduced by name.',o:'Sales and marketing lead',d:'Friday 30 April 2027'},
+ {id:19,s:'post',t:'loyalty',p:'building-management',l:['complete'],seen:2,i:4,e:1,
+  h:'The concierge meets new residents knowing nothing about them.',
+  ev:'Preferences shared during the sale never reached building management. Two residents had to explain parking and deliveries again after moving in.',
+  r:'fix',rt:'A short resident note from Orchard Piper to the building manager at every settlement.',o:'Building manager',d:'Friday 26 February 2027'},
+ {id:20,s:'post',t:'trust',p:'building-management',l:['complete'],seen:3,i:3,e:1,
+  h:'Resident requests carry no promised reply time.',
+  ev:'Replies to resident requests ranged from same day to nine days, and no standard is written down anywhere a resident can see it.',
+  r:'fix',rt:'A published standard of one business day to acknowledge and five to resolve or explain.',o:'Building manager',d:'Friday 29 January 2027'},
+ {id:21,s:'advocacy',t:'loyalty',p:'orchard-piper',l:['complete'],seen:3,i:5,e:2,
+  h:'Owners who would recommend Orchard Piper are never asked.',
+  ev:'Four recent purchasers said they would recommend Orchard Piper. None had been asked for a referral or offered a first look at the next release.',
+  r:'moment',rt:'Invite owners to a private first look before each public launch, and ask once for a referral, twelve months after settlement.',o:'Sales and marketing lead',d:'Monday 31 May 2027'}
+];
+var PRIORITY=[4,8,11,14,16];
+
+var LANES=['selling-agent','orchard-piper','development-manager','builder','building-management'];
+var TP=[
+ ['awareness','selling-agent','Site hoarding and signage',[2],[]],
+ ['awareness','orchard-piper','Press coverage',[],[]],
+ ['awareness','orchard-piper','Main website',[],[2]],
+ ['awareness','orchard-piper','Project pages',[1,3],[1]],
+ ['awareness','orchard-piper','Social channels',[],[]],
+ ['awareness','selling-agent','Property portal listings',[],[]],
+ ['awareness','orchard-piper','Word of mouth',[],[11]],
+ ['awareness','orchard-piper','AI assistant answers',[],[]],
+ ['enquiry','orchard-piper','Registration forms',[5,7],[]],
+ ['enquiry','selling-agent','Automatic reply',[],[]],
+ ['enquiry','selling-agent','Agent email reply',[4,6],[]],
+ ['enquiry','selling-agent','Direct phone calls',[],[3]],
+ ['enquiry','orchard-piper','Social media messages',[],[]],
+ ['enquiry','selling-agent','Portal enquiries',[],[]],
+ ['enquiry','selling-agent','Follow-up after enquiry',[],[]],
+ ['sales','selling-agent','Display suite booking',[],[]],
+ ['sales','selling-agent','Display suite visit',[9,10],[5]],
+ ['sales','orchard-piper','Material samples and finishes',[],[4]],
+ ['sales','selling-agent','Completed property inspection',[],[]],
+ ['sales','orchard-piper','Brochure and price list',[],[]],
+ ['sales','selling-agent','Follow-up after a visit',[8],[]],
+ ['sales','selling-agent','Contract and deposit',[],[]],
+ ['changes','development-manager','Change cutoff communication',[11],[]],
+ ['changes','development-manager','Variation request',[12],[]],
+ ['changes','development-manager','Variation quote',[],[6]],
+ ['changes','development-manager','Selections appointment',[],[]],
+ ['construction','orchard-piper','Regular updates',[13],[]],
+ ['construction','orchard-piper','Milestone communication',[15],[]],
+ ['construction','builder','Delay notification',[14],[]],
+ ['construction','builder','Site presentation',[],[7]],
+ ['construction','orchard-piper','Purchaser document access',[],[]],
+ ['construction','development-manager','Pre-settlement notice',[],[]],
+ ['handover','development-manager','Pre-settlement inspection',[17],[8]],
+ ['handover','builder','Defects logging',[16],[]],
+ ['handover','builder','Defects rectification',[16],[]],
+ ['handover','orchard-piper','Settlement paperwork',[],[]],
+ ['handover','orchard-piper','Key handover',[18],[]],
+ ['handover','development-manager','Home manual and warranties',[],[]],
+ ['post','building-management','Building manager welcome',[],[10]],
+ ['post','building-management','Concierge',[19],[]],
+ ['post','building-management','Resident requests',[20],[]],
+ ['post','building-management','Common area upkeep',[],[9]],
+ ['post','building-management','Owners corporation communication',[],[]],
+ ['advocacy','orchard-piper','Referral invitation',[21],[]],
+ ['advocacy','orchard-piper','Reviews and testimonials',[],[]],
+ ['advocacy','orchard-piper','First look at the next release',[21],[]]
+].map(function(a,i){return {id:i+1,s:a[0],p:a[1],n:a[2],f:a[3],w:a[4],st:a[3].length?'fr':(a[4].length?'wl':'hd')}});
+var CONF=[60,52,76,58,36,64,78,82];
+
+
+var HOLD='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="3.6" y="3.6" width="4.8" height="4.8" fill="currentColor"/></svg>';
+var W=[
+ {id:1,s:'awareness',t:'trust',p:'orchard-piper',l:['complete'],seen:3,
+  h:'Finished buildings look like the renders they were sold from.',
+  ev:'Side by side, the facades and lobbies of the three completed buildings match their marketing renders closely in material, proportion and light. Recent purchasers raised this without being asked.',
+  k:'Show it. This is the strongest proof the portfolio has, and finding 3 sets out how to use it.'},
+ {id:2,s:'awareness',t:'conversion',p:'orchard-piper',l:['now-selling','coming-soon','complete'],seen:7,
+  h:'The website loads quickly and reads well on a phone.',
+  ev:'The main site and all seven project pages loaded in under three seconds on a mobile connection, with the same navigation throughout.',
+  k:'Hold the standard when the project page template is rebuilt.'},
+ {id:3,s:'enquiry',t:'conversion',p:'selling-agent',l:['now-selling'],seen:2,
+  h:'Weekday calls reach someone who knows the building.',
+  ev:'Weekday phone enquiries were answered within three rings by agents who could speak confidently about orientation, outlook and storage.',
+  k:'Bring weekend and email replies up to the same standard.'},
+ {id:4,s:'sales',t:'trust',p:'selling-agent',l:['now-selling'],seen:1,
+  h:'Buyers can handle the real materials.',
+  ev:'The display suite offers full-size samples of stone, timber and hardware rather than swatches. Every persona remarked on it.',
+  k:'Carry the same samples into every future suite.'},
+ {id:5,s:'sales',t:'trust',p:'selling-agent',l:['now-selling'],seen:2,
+  h:'Nobody was pressed for a decision.',
+  ev:'Across four visits, agents gave buyers time and space. There was no manufactured urgency and no talk of other interested parties.',
+  k:'Keep this in the agency brief as a stated expectation.'},
+ {id:6,s:'changes',t:'trust',p:'development-manager',l:['now-selling'],seen:2,
+  h:'Variation quotes are itemised and explain the effect on timing.',
+  ev:'Each variation quote reviewed listed every cost line and stated whether it would move the build program.',
+  k:'Use the same format for the confirmation step in finding 12.'},
+ {id:7,s:'construction',t:'trust',p:'builder',l:['now-selling'],seen:3,
+  h:'Sites are kept to a standard buyers notice.',
+  ev:'All three active sites were clean, well signed and quiet at the boundary on unannounced visits. Two purchasers mentioned driving past to look.',
+  k:'Treat the site as part of the sales experience, and say so in builder contracts.'},
+ {id:8,s:'handover',t:'trust',p:'builder',l:['complete'],seen:3,
+  h:'Purchasers describe the finish as exceptional.',
+  ev:'Every recent purchaser spoke about the craftsmanship. Defect lists at inspection were short, averaging fewer than twenty items.',
+  k:'Let the handover itself match the quality of the build, as findings 17 and 18 suggest.'},
+ {id:9,s:'post',t:'loyalty',p:'building-management',l:['complete'],seen:3,
+  h:'Common areas are kept to a hotel standard.',
+  ev:'Lobbies, lifts and gardens were clean and staffed on three unannounced visits to each completed building.',
+  k:'Write the standard down so it survives a change of manager.'},
+ {id:10,s:'post',t:'loyalty',p:'building-management',l:['complete'],seen:2,
+  h:'Residents know their building manager by name.',
+  ev:'In both buildings with an on-site manager, residents used the manager\u2019s first name and described them as easy to reach.',
+  k:'Introduce the manager at handover, before the resident moves in.'},
+ {id:11,s:'advocacy',t:'loyalty',p:'orchard-piper',l:['complete'],seen:3,
+  h:'Owners already recommend Orchard Piper unprompted.',
+  ev:'Four of five recent purchasers had recommended Orchard Piper to someone they know. Two came to Orchard Piper through a friend who already owns.',
+  k:'Give that goodwill somewhere to go, as finding 21 sets out.'}
+];
+
+
+var MEASURES=[
+ {n:'Median first reply to a new enquiry',u:'Hours',a:26,v:6,g:4,lower:true,max:30,fmt:function(x){return x+' hours'},mv:'20 hours faster',st:'close'},
+ {n:'Display suite visits followed up within 48 hours',u:'Share of visits',a:25,v:75,g:90,max:100,fmt:function(x){return x+'%'},mv:'Up 50 points',st:'close'},
+ {n:'Longest gap between construction updates',u:'Weeks',a:19,v:6,g:6,lower:true,max:22,fmt:function(x){return x+' weeks'},mv:'13 weeks shorter',st:'on'},
+ {n:'Change requests confirmed within ten business days',u:'Share of requests',a:40,v:55,g:90,max:100,fmt:function(x){return x+'%'},mv:'Up 15 points',st:'behind'},
+ {n:'Defects closed within 30 days of inspection',u:'Share of items',a:38,v:71,g:85,max:100,fmt:function(x){return x+'%'},mv:'Up 33 points',st:'close'}
+];
+var STATUS={on:['on','On target'],close:['close','Close to target'],behind:['','Behind target']};
+
+
+var MSRC=['Mystery enquiries at the review, checked against agency response logs.','Agency records of every display suite visit and the follow-up that came after it.','The purchaser update log kept by Orchard Piper.','The change request register kept by the development manager.','The shared defects log, from inspection date to close date.'];
+MEASURES.forEach(function(m,i){m.src=MSRC[i]});
+var ACT={2:'prog',4:'prog',8:'prog',11:'prog',14:'done',19:'prog'};
+var ACTL={none:'Not started',prog:'In progress',done:'Done'};
+var CHECKIN='Friday 4 December 2026';
+
+var PAGES=[
+ {k:'overview',n:'Overview'},
+ {k:'method',n:'How the audit was run'},
+ {k:'journey',n:'The journey'},
+ {k:'working',n:'What\u2019s working'},
+ {k:'findings',n:'Findings'},
+ {k:'actions',n:'Action plan'},
+ {k:'scorecard',n:'Scorecard'},
+ {k:'parties',n:'By party'},
+ {k:'resources',n:'Resources'}
+];
+
+function lbl(list,k){for(var i=0;i<list.length;i++)if(list[i].k===k)return list[i].n;return k}
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function fById(id){return F.filter(function(x){return x.id===id})[0]}
+function wById(id){return W.filter(function(x){return x.id===id})[0]}
+function mkFor(t){return '<i class="mk '+(t==='trust'?'t':t==='loyalty'?'l':'c')+'"></i>'}
+function partyThe(k){return k==='orchard-piper'?'Orchard Piper':k==='building-management'?'building management':'the '+lbl(PARTIES,k).toLowerCase()}
+function statusOf(id){return ACT[id]||'none'}
+function statusHtml(id){var s=statusOf(id);return '<span class="status"><i class="dot '+(s==='none'?'':s)+'"></i>'+ACTL[s]+'</span>'}
+function stageName(k){return lbl(STAGES,k)}
+function projText(f){return 'Seen across '+f.seen+' of 7 projects, '+f.l.map(function(x){return lbl(LIFE,x)}).join(' and ').replace(/ and (?=[^,]* and )/,', ')}
+
+/* ---------- Navigation ---------- */
+function navHtml(){
+  var h='<ol>';
+  PAGES.forEach(function(p,i){
+    h+='<li><a href="#/'+p.k+'" data-page="'+p.k+'"><span class="no">0'+(i+1)+'</span><span>'+p.n+'</span></a>';
+    if(p.k==='parties'){h+='<ol class="sub">'+PARTIES.map(function(x){return '<li><a href="#/party/'+x.k+'" data-page="party/'+x.k+'"><span></span><span>'+x.n+'</span></a></li>'}).join('')+'</ol>'}
+    h+='</li>';
+  });
+  return h+'</ol>';
+}
+function footHtml(){
+  return '<p>Delivered <strong>Friday 6 November 2026</strong><br>Status updated <strong>'+CHECKIN+'</strong><br>Six-month review <strong>Friday 7 May 2027</strong></p>'+
+   '<p class="credit"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.8 3.84 A9 9 0 0 1 20.16 8.2" fill="none" stroke="#B07C57" stroke-width="3"/></svg>Prepared by Apertura CX</p>';
+}
+$('navSide').innerHTML=navHtml();$('navMenu').innerHTML=navHtml();
+$('footSide').innerHTML=footHtml();$('footMenu').innerHTML=footHtml();
+$('menuBtn').addEventListener('click',function(){var m=$('menu'),o=!m.classList.contains('open');m.classList.toggle('open',o);this.setAttribute('aria-expanded',o?'true':'false');this.textContent=o?'Close':'Menu';document.body.style.overflow=o?'hidden':''});
+function closeMenu(){var m=$('menu');m.classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false');$('menuBtn').textContent='Menu';document.body.style.overflow=''}
+
+/* ---------- Shared pieces ---------- */
+function head(i,title,covers){
+  return '<p class="eyebrow">'+(i?'Page '+i+' of 9':'')+'</p><h1>'+title+'</h1><div class="covers"><h2>What this page covers</h2><p>'+covers+'</p></div>';
+}
+function pn(k){
+  var i=PAGES.map(function(p){return p.k}).indexOf(k),h='<nav class="pn" aria-label="Previous and next page">';
+  if(i>0)h+='<a href="#/'+PAGES[i-1].k+'"><small>Previous</small><span>'+PAGES[i-1].n+'</span></a>';
+  if(i<PAGES.length-1)h+='<a class="next" href="#/'+PAGES[i+1].k+'"><small>Next</small><span>'+PAGES[i+1].n+'</span></a>';
+  return h+'</nav><p class="foot">Illustrative sample prepared by Apertura CX for Orchard Piper. The portfolio shape reflects Orchard Piper. Every finding, figure, date and owner is invented to show the format, and none describes a real project, agency or person.</p>';
+}
+function findingCard(f){
+  var isP=PRIORITY.indexOf(f.id)>-1;
+  return '<article class="finding" id="f'+f.id+'"><div>'+
+    '<div class="fnum">Finding '+f.id+(isP?'<span class="prio">Priority '+(PRIORITY.indexOf(f.id)+1)+'</span>':'')+'</div>'+
+    '<h3>'+esc(f.h)+'</h3>'+
+    '<div class="meta"><span class="tag '+f.t+'">'+lbl(TAGS,f.t)+'</span><span class="m-chip">'+stageName(f.s)+'</span><span class="m-chip">'+lbl(PARTIES,f.p)+'</span></div>'+
+    '<div class="seen">'+projText(f)+'</div>'+
+    '</div><div><div class="evidence"><h4>What we saw</h4><p>'+esc(f.ev)+'</p></div>'+
+    '<div class="rec'+(f.r==='moment'?' moment':'')+'"><h4>'+(f.r==='moment'?'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><line x1="1" y1="11" x2="11" y2="1" stroke="currentColor" stroke-width="1.6"/></svg>Designed moment':'Fix')+'</h4>'+
+    '<p>'+esc(f.rt)+'</p><p class="own">Owner, '+esc(f.o)+'. Due '+f.d+'. '+ACTL[statusOf(f.id)]+'.</p></div></div></article>';
+}
+function winCard(w){
+  return '<article class="win" id="w'+w.id+'"><div><h4>'+HOLD+'<span>'+esc(w.h)+'</span></h4>'+
+    '<div class="meta"><span class="tag '+w.t+'">Protects '+lbl(TAGS,w.t)+'</span><span class="m-chip">'+lbl(PARTIES,w.p)+'</span></div></div>'+
+    '<div><p>'+esc(w.ev)+'</p><p class="keep"><b>Worth keeping.</b> '+esc(w.k)+'</p></div></article>';
+}
+function actionTable(list){
+  if(!list.length)return '<p class="body">No actions are held by this party.</p>';
+  return '<table class="tbl stack"><thead><tr><th>Finding</th><th>Action</th><th>Type</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>'+
+   list.map(function(f){
+     return '<tr><td class="num" data-l="Finding"><a href="#/findings?f='+f.id+'">'+f.id+'</a></td><td class="lead-cell">'+esc(f.rt)+'</td><td class="m" data-l="Type">'+(f.r==='moment'?'<span class="dm">Designed moment</span>':'Fix')+'</td><td class="m" data-l="Owner">'+esc(f.o)+'</td><td class="m" data-l="Due">'+f.d.replace(/^\w+ /,'')+'</td><td data-l="Status">'+statusHtml(f.id)+'</td></tr>';
+   }).join('')+'</tbody></table>';
+}
+
+/* ---------- Journey map ---------- */
+function tpMark(tp){
+  if(tp.st==='fr')return mkFor(fById(tp.f[0]).t);
+  if(tp.st==='wl')return HOLD;
+  return '<i class="mk hd"></i>';
+}
+function tpBtn(tp,withParty){
+  var sr=tp.st==='fr'?'friction':tp.st==='wl'?'working well':'nothing to report';
+  return '<button type="button" class="tp '+tp.st+'" data-tp="'+tp.id+'" aria-pressed="false">'+tpMark(tp)+'<span>'+esc(tp.n)+
+    (withParty?'<small>'+lbl(PARTIES,tp.p)+'</small>':'')+'<span class="sr">, '+sr+'</span></span></button>';
+}
+function stageCounts(k){
+  var f=F.filter(function(x){return x.s===k}).length,w=W.filter(function(x){return x.s===k}).length,n=TP.filter(function(x){return x.s===k}).length;
+  return n+' touchpoints<br>'+f+' finding'+(f===1?'':'s')+', '+w+' working well';
+}
+function confSvg(mobile){
+  var W8=800,H=mobile?130:104,top=16,bot=mobile?30:16,span=H-top-bot;
+  var pts=CONF.map(function(v,i){return [W8/16+i*W8/8, top+span*(1-(v-20)/75)]});
+  var d='M'+pts[0][0]+' '+pts[0][1];
+  for(var i=0;i<pts.length-1;i++){
+    var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+    d+=' C'+(p1[0]+(p2[0]-p0[0])/6).toFixed(1)+' '+(p1[1]+(p2[1]-p0[1])/6).toFixed(1)+' '+(p2[0]-(p3[0]-p1[0])/6).toFixed(1)+' '+(p2[1]-(p3[1]-p1[1])/6).toFixed(1)+' '+p2[0]+' '+p2[1].toFixed(1);
+  }
+  var low=4,s='<svg viewBox="0 0 '+W8+' '+H+'" role="img" aria-label="Buyer confidence by stage, lowest during construction">';
+  s+='<path d="'+d+'" fill="none" stroke="var(--ink)" stroke-width="'+(mobile?2.4:1.6)+'"/>';
+  pts.forEach(function(p,i){s+='<circle cx="'+p[0]+'" cy="'+p[1].toFixed(1)+'" r="'+(mobile?7:4.5)+'" fill="'+(i===low?'var(--ink)':'var(--canvas)')+'" stroke="var(--ink)" stroke-width="1.6"/>';
+    if(mobile)s+='<text x="'+p[0]+'" y="'+(H-4)+'" text-anchor="middle" font-size="22" fill="var(--mute)" font-family="inherit">'+(i+1)+'</text>';});
+  if(!mobile)s+='<text x="'+(pts[low][0]+10)+'" y="'+(pts[low][1]+18).toFixed(1)+'" font-size="15" fill="var(--mute)" font-family="inherit">Lowest point, the long wait</text>';
+  return s+'</svg>';
+}
+function mapHtml(){
+  var h='<div class="map" id="map"><div class="c0 r0"></div>';
+  STAGES.forEach(function(s){h+='<div class="r0"><button type="button" class="mhead" data-stage="'+s.k+'" aria-expanded="false"><span class="hn">'+s.n+'</span><span class="hc">'+stageCounts(s.k)+'</span></button></div>'});
+  h+='<div class="c0 mconfl"><b>Buyer confidence</b>How sure recent purchasers felt</div><div class="mconf">'+confSvg(false)+'</div>';
+  LANES.forEach(function(l){
+    h+='<div class="c0 mlane">'+lbl(PARTIES,l)+'</div>';
+    STAGES.forEach(function(s){h+='<div class="mcell">'+TP.filter(function(x){return x.s===s.k&&x.p===l}).map(function(x){return tpBtn(x,false)}).join('')+'</div>'});
+  });
+  h+='</div><div class="mstack" id="mstack"><div class="mconf-m"><p style="margin:0 0 2px;font-weight:500">Buyer confidence</p><p style="margin:0 0 8px;font-size:14px;color:var(--mute)">How sure recent purchasers felt at each stage. The lowest point is the long wait through construction.</p>'+confSvg(true)+'</div>';
+  STAGES.forEach(function(s,i){
+    h+='<div class="mst" data-stage="'+s.k+'"><button type="button" class="mhead" data-stage="'+s.k+'" aria-expanded="false"><span class="hn">'+(i+1)+'. '+s.n+'</span><span class="hc" style="text-align:right">'+stageCounts(s.k)+'</span></button><ul>'+
+      TP.filter(function(x){return x.s===s.k}).map(function(x){return '<li>'+tpBtn(x,true)+'</li>'}).join('')+'</ul></div>';
+  });
+  return h+'</div><div class="panel" id="panel" hidden aria-live="polite"></div>'+
+   '<div class="legend"><span>'+mkFor('trust')+'Friction, Trust</span><span>'+mkFor('conversion')+'Friction, Conversion</span><span>'+mkFor('loyalty')+'Friction, Loyalty</span><span>'+HOLD+'Working well</span><span><i class="mk hd"></i>Tested, nothing to report</span></div>';
+}
+var openStage='',openTp=0;
+function linkRow(kind,x){
+  var mark=kind==='f'?mkFor(x.t):HOLD;
+  var sub=kind==='f'?('Finding '+x.id+', '+lbl(TAGS,x.t)+', '+(x.r==='moment'?'Designed moment':'Fix')):('Working well, protects '+lbl(TAGS,x.t));
+  return '<li><a href="'+(kind==='f'?'#/findings?f=':'#/working?w=')+x.id+'">'+mark+'<span>'+esc(x.h)+'<small>'+sub+'</small></span></a></li>';
+}
+function showPanel(){
+  var p=$('panel');if(!p)return;
+  Array.prototype.forEach.call(document.querySelectorAll('.mhead'),function(b){b.setAttribute('aria-expanded',b.dataset.stage===openStage&&!openTp?'true':'false')});
+  Array.prototype.forEach.call(document.querySelectorAll('.tp'),function(b){b.setAttribute('aria-pressed',+b.dataset.tp===openTp?'true':'false')});
+  if(!openStage&&!openTp){p.hidden=true;p.innerHTML='';return}
+  var html,s;
+  if(openTp){
+    var tp=TP[openTp-1];s=STAGES.filter(function(x){return x.k===tp.s})[0];
+    var rows=tp.w.map(function(id){return linkRow('w',wById(id))}).join('')+tp.f.map(function(id){return linkRow('f',fById(id))}).join('');
+    html='<div><h3>'+esc(tp.n)+'</h3><p>'+s.n+' stage. Delivered by '+partyThe(tp.p)+'.</p>'+
+      (rows?'<ul class="plinks">'+rows+'</ul>':'<p class="ph">Tested and met the standard. Nothing to report.</p>')+'</div>'+
+      '<div><p class="ph" style="margin-top:0">What we tested at this stage</p><p style="margin-top:6px">'+s.t+'</p><button class="btn ghost" type="button" data-openstage="'+s.k+'">See the whole stage</button></div>';
+  }else{
+    s=STAGES.filter(function(x){return x.k===openStage})[0];
+    var list=F.filter(function(f){return f.s===openStage}),wl=W.filter(function(w){return w.s===openStage});
+    var c={trust:0,conversion:0,loyalty:0};list.forEach(function(f){c[f.t]++});
+    html='<div><h3>'+s.n+'</h3><p>'+s.t+'</p>'+(wl.length?'<p class="ph">Working well</p><ul class="simple">'+wl.map(function(w){return '<li>'+HOLD+'<span>'+esc(w.h)+'</span></li>'}).join('')+'</ul>':'')+'</div>'+
+      '<div><p class="ph" style="margin-top:0">Findings by tag</p><div class="split"><div>'+mkFor('trust')+c.trust+' Trust</div><div>'+mkFor('conversion')+c.conversion+' Conversion</div><div>'+mkFor('loyalty')+c.loyalty+' Loyalty</div></div>'+
+      '<a class="btn" href="#/findings?stage='+s.k+'">Read the findings at this stage</a></div>';
+  }
+  p.innerHTML=html;p.hidden=false;
+  var anchor=getComputedStyle($('map')).display==='none'?document.querySelector('.mst[data-stage="'+openStage+'"]'):$('map');
+  if(anchor&&anchor.nextSibling!==p)anchor.parentNode.insertBefore(p,anchor.nextSibling);
+  setTimeout(function(){var r=p.getBoundingClientRect();if(r.top>window.innerHeight-140||r.top<60)p.scrollIntoView({behavior:'smooth',block:'start'})},30);
+}
+function bindMap(){
+  openStage='';openTp=0;
+  $('page').addEventListener('click',mapClick);
+}
+function mapClick(e){
+  var b=e.target.closest('button');if(!b||!$('panel'))return;
+  if(b.dataset.tp){var id=+b.dataset.tp;openTp=openTp===id?0:id;openStage=openTp?TP[id-1].s:'';showPanel();return}
+  if(b.classList.contains('mhead')){var k=b.dataset.stage;openStage=(openStage===k&&!openTp)?'':k;openTp=0;showPanel();return}
+  if(b.dataset.openstage){openStage=b.dataset.openstage;openTp=0;showPanel()}
+}
+
+/* ---------- Matrix ---------- */
+function matrixSvg(){
+  var S=420,pad=46,cell=(S-pad)/5;
+  function X(e){return pad+(e-0.5)*cell}
+  function Y(i){return (5.5-i)*cell}
+  var groups={};F.forEach(function(f){var k=f.i+'_'+f.e;(groups[k]=groups[k]||[]).push(f)});
+  var dots='';
+  Object.keys(groups).forEach(function(k){
+    var g=groups[k],n=g.length;
+    g.forEach(function(f,j){
+      var cx=X(f.e),cy=Y(f.i);
+      if(n>1){var ang=-Math.PI/2+j*2*Math.PI/n,rad=n>4?24:16;cx+=Math.cos(ang)*rad;cy+=Math.sin(ang)*rad}
+      var isP=PRIORITY.indexOf(f.id)>-1;
+      dots+='<a href="#/findings?f='+f.id+'" aria-label="Finding '+f.id+', '+esc(f.h)+'"><circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="11" fill="'+(isP?'var(--prio)':'var(--canvas)')+'" stroke="'+(isP?'var(--prio)':'var(--ink)')+'" stroke-width="1.3"/>'+
+        '<text x="'+cx.toFixed(1)+'" y="'+(cy+4).toFixed(1)+'" text-anchor="middle" font-size="11" font-family="inherit" fill="'+(isP?'var(--on-prio)':'var(--ink)')+'">'+f.id+'</text></a>';
+    });
+  });
+  return '<svg viewBox="0 -26 '+S+' '+(S+36)+'" role="img" aria-label="Findings placed by commercial impact and effort">'+
+    '<polygon points="'+pad+',0 '+S+',0 '+pad+','+(S-pad)+'" fill="var(--stone)"/>'+
+    '<rect x="'+pad+'" y="0" width="'+(S-pad)+'" height="'+(S-pad)+'" fill="none" stroke="var(--ink)" stroke-width="1.2"/>'+
+    '<line x1="'+pad+'" y1="'+(S-pad)+'" x2="'+S+'" y2="0" stroke="var(--ink)" stroke-width="1.2" opacity=".45"/>'+
+    '<text x="'+pad+'" y="-10" font-size="13" font-family="inherit" fill="var(--mute)">Start above the line</text>'+
+    '<text x="'+(S-12)+'" y="'+(S-pad-12)+'" font-size="13" font-family="inherit" fill="var(--mute)" text-anchor="end">Schedule or rethink</text>'+
+    '<text x="'+(pad+(S-pad)/2)+'" y="'+(S-pad+26)+'" font-size="13" font-family="inherit" fill="var(--mute)" text-anchor="middle">Effort, lower to higher</text>'+
+    '<text transform="translate(18 '+((S-pad)/2)+') rotate(-90)" font-size="13" font-family="inherit" fill="var(--mute)" text-anchor="middle">Commercial impact, lower to higher</text>'+
+    dots+'</svg>';
+}
+function prioList(){
+  return '<ol class="plist">'+PRIORITY.map(function(id,ix){
+    var f=fById(id);
+    return '<li><a href="#/findings?f='+id+'"><span class="rank">'+(ix+1)+'</span><span><span class="pt-title">'+esc(f.h)+'</span><span class="pt-sub">'+lbl(TAGS,f.t)+', '+lbl(PARTIES,f.p)+'. Owner, '+esc(f.o)+'.</span></span>'+statusHtml(id)+'</a></li>';
+  }).join('')+'</ol>';
+}
+
+/* ---------- Scorecard ---------- */
+var mode='audit';
+function pct(m,x){return Math.max(2,Math.min(98,x/m.max*100))}
+function measuresHtml(){
+  return MEASURES.map(function(m){
+    var a=pct(m,m.a),v=pct(m,m.v),g=pct(m,m.g),rv=mode==='review';
+    var lo=Math.min(a,rv?v:a),hi=Math.max(a,rv?v:a),st=STATUS[m.st];
+    var read=rv?
+      '<dt>At audit</dt><dd>'+m.fmt(m.a)+'</dd><dt>At six months</dt><dd>'+m.fmt(m.v)+'</dd><dt>Target</dt><dd>'+m.fmt(m.g)+'</dd><dt>Movement</dt><dd>'+m.mv+'</dd><dd class="status"><i class="dot '+st[0]+'"></i>'+st[1]+'</dd>':
+      '<dt>At audit</dt><dd>'+m.fmt(m.a)+'</dd><dt>Target</dt><dd>'+m.fmt(m.g)+'</dd><dt>Read again</dt><dd>7 May 2027</dd>';
+    return '<div class="measure"><div><h3>'+m.n+'</h3><div class="unit">'+m.u+(m.lower?', lower is better':', higher is better')+'</div><div class="src">'+m.src+'</div></div>'+
+      '<div class="track" aria-hidden="true"><span class="rail"></span><span class="fill" style="left:'+lo+'%;width:'+(hi-lo)+'%;opacity:'+(rv?1:0)+'"></span>'+
+      '<span class="pt target" style="left:'+g+'%"></span><span class="pt audit" style="left:'+a+'%"></span><span class="pt now" style="left:'+(rv?v:a)+'%;opacity:'+(rv?1:0)+'"></span></div>'+
+      '<dl class="readout">'+read+'</dl></div>';
+  }).join('');
+}
+
+/* ---------- Findings filters ---------- */
+var fstate={party:'',stage:'',tag:'',life:''};
+var OPTS={party:PARTIES,stage:STAGES,tag:TAGS,life:LIFE};
+function fMatch(f){return (!fstate.party||f.p===fstate.party)&&(!fstate.stage||f.s===fstate.stage)&&(!fstate.tag||f.t===fstate.tag)&&(!fstate.life||f.l.indexOf(fstate.life)>-1)}
+function filtersHtml(){
+  var names={party:'Party',stage:'Journey stage',tag:'Tag',life:'Project stage'};
+  return '<div class="filters">'+['party','stage','tag','life'].map(function(k){
+    return '<div class="fgroup"><div class="flabel">'+names[k]+'</div><div class="chips" data-key="'+k+'"><button type="button" class="chip" data-v="">All</button>'+OPTS[k].map(function(o){return '<button type="button" class="chip" data-v="'+o.k+'">'+o.n+'</button>'}).join('')+'</div></div>';
+  }).join('')+'</div><p class="count"><span id="countText"></span><button class="linkbtn" type="button" id="clearBtn" hidden>Clear filters</button></p><div class="findings" id="flist"></div>';
+}
+function fQuery(){var p=[];['party','stage','tag','life'].forEach(function(k){if(fstate[k])p.push(k+'='+fstate[k])});return p.join('&')}
+function renderFindings(){
+  Array.prototype.forEach.call(document.querySelectorAll('.chips'),function(box){var k=box.dataset.key;Array.prototype.forEach.call(box.children,function(c){c.setAttribute('aria-pressed',c.dataset.v===fstate[k]?'true':'false')})});
+  var list=F.filter(fMatch),any=!!fQuery();
+  $('flist').innerHTML=list.length?list.map(findingCard).join(''):'<div class="empty"><p>No findings match this combination.</p></div>';
+  $('countText').textContent=any?('Showing '+list.length+' of '+F.length+' findings'):('All '+F.length+' findings');
+  $('clearBtn').hidden=!any;
+  try{history.replaceState(null,'','#/findings'+(any?'?'+fQuery():''))}catch(e){}
+}
+function bindFindings(){
+  Array.prototype.forEach.call(document.querySelectorAll('.chips'),function(box){
+    box.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;fstate[box.dataset.key]=c.dataset.v;renderFindings()});
+  });
+  $('clearBtn').addEventListener('click',function(){fstate={party:'',stage:'',tag:'',life:''};renderFindings()});
+  renderFindings();
+}
+
+/* ---------- Pages ---------- */
+function pgOverview(){
+  var cards=PAGES.slice(1).map(function(p,i){
+    var d={method:'Scope, timeline, methods, who we spoke with, and how findings are tagged and ranked.',
+      journey:'All 46 touchpoints, placed in the lane of whoever delivers them, with buyer confidence across the journey.',
+      working:'Eleven things that already hold and should be protected.',
+      findings:'Twenty-one findings with evidence, recommendation, owner and date.',
+      actions:'Every action in one place, with priority, owner, due date and status.',
+      scorecard:'Five measures with targets, read again at the six-month review.',
+      parties:'One page for each party, holding only their part, ready to forward.',
+      resources:'Glossary, templates and the research materials behind the audit.'}[p.k];
+    return '<a class="card" href="#/'+p.k+'"><span class="no">0'+(i+2)+'</span><b>'+p.n+'</b><span class="d">'+d+'</span></a>';
+  }).join('');
+  return head(0,'Seven projects, eight stages, one standard to hold.','The audit at a glance, the five actions to start with, and how each team should use this document.')+
+  '<div class="sec"><div class="strip"><div><b>7</b><span>Projects reviewed</span></div><div><b>46</b><span>Touchpoints tested</span></div><div><b>13</b><span>People interviewed</span></div><div><b>11</b><span>Working well</span></div><div><b>21</b><span>Findings</span></div><div><b>5</b><span>Priorities</span></div></div>'+
+  '<p class="dates">Delivered <strong>Friday 6 November 2026</strong>. Status updated <strong>'+CHECKIN+'</strong>. Six-month review <strong>Friday 7 May 2027</strong>.</p></div>'+
+  '<div class="note"><h2>In short</h2><p class="body">Orchard Piper\u2019s buildings deliver what was promised. Buyers, owners and residents all said so, and the finished product matches its renders. The experience around the building is less consistent. It depends on which agency, which project and which stage a buyer is at, and the gaps cluster where one party hands a buyer to the next.</p><p class="body">Trust carries most of the risk. Buyers commit years before they see the finished home, so a late reply, a surprise deadline or news of a delay arriving second hand costs more here than in any other kind of purchase.</p></div>'+
+  '<div class="sec"><h2>Where to start</h2><p class="lead">Five actions with the highest commercial impact for the effort involved.</p>'+prioList()+'</div>'+
+  '<div class="sec"><h2>How to use this document</h2><div class="use"><div><h3>Leadership</h3><p>Read this page and the action plan. Everything else supports those two.</p></div><div><h3>Each department and partner</h3><p>Open your page under By party. It holds only your touchpoints, strengths, findings and actions, and has its own link to forward.</p></div><div><h3>At each monthly check-in</h3><p>Apertura updates the status of every action. The date at the foot of the menu shows when it last changed.</p></div></div></div>'+
+  '<div class="sec"><h2>Inside this document</h2><div class="cards">'+cards+'</div></div>'+pn('overview');
+}
+function pgMethod(){
+  var people=[
+    ['Head of Design','Orchard Piper','60 minute interview'],
+    ['Sales and marketing lead','Orchard Piper','60 minute interview'],
+    ['Selling agency principals, two','Selling agents','45 minute interviews'],
+    ['Development manager','Development management','45 minute interview'],
+    ['Builder\u2019s site manager','Builder','45 minute site walk'],
+    ['Building managers, two','Building management','45 minute interviews'],
+    ['Recent purchasers, five','Buyers from completed projects','30 minute conversations']
+  ];
+  return head(2,'How we looked, and who we listened to.','Why the audit was run the way it was, what it covered and left out, who took part, and how every finding is tagged and ranked.')+
+  '<div class="sec"><h2>Scope</h2><p class="body">All seven Orchard Piper projects were reviewed across three project stages, three Now Selling, one Coming Soon and three Complete. Four were reviewed in depth, the two most recently completed and the two currently selling, because together they cover every stage of the buyer journey.</p><p class="body">The audit follows a buyer from first seeing a hoarding to recommending Orchard Piper years later, across 46 touchpoints and eight stages agreed with Orchard Piper at scoping.</p></div>'+
+  '<div class="sec"><h2>Timeline</h2><ol class="timeline"><li><b>Week 1</b><span>Scope confirmed, touchpoint list agreed, desk review of the website, project pages, social channels and portal listings.</span></li><li><b>Week 2</b><span>Mystery enquiries sent, display suite visits and completed property inspections.</span></li><li><b>Week 3</b><span>Stakeholder interviews and conversations with recent purchasers.</span></li><li><b>Week 4</b><span>Analysis, tagging and prioritisation, then delivery and walk-through.</span></li></ol></div>'+
+  '<div class="sec"><h2>Methods</h2><p class="lead">Each method tests the experience from a different side. Desk review shows what a buyer is told, mystery enquiries show what a buyer receives, and conversations show what a buyer remembers.</p><div class="methods">'+
+   '<div><b>8</b><h3>Pages reviewed</h3><p>The main site and all seven project pages, checked on desktop and phone for consistency, clarity and speed.</p></div>'+
+   '<div><b>8</b><h3>Mystery enquiries</h3><p>Two buyer personas, one downsizing locally and one buying from interstate, sent through forms, email and phone across two agencies.</p></div>'+
+   '<div><b>6</b><h3>Visits</h3><p>Four display suite visits and two completed property inspections, each followed for thirty days to see what came next.</p></div>'+
+   '<div><b>8</b><h3>Stakeholder interviews</h3><p>People from every party who delivers part of the journey, listed below.</p></div>'+
+   '<div><b>5</b><h3>Purchaser conversations</h3><p>Recent buyers from completed projects, describing the whole journey in their own words. These also shape the buyer confidence line.</p></div>'+
+   '<div><b>46</b><h3>Touchpoints logged</h3><p>Every touchpoint recorded with who delivers it, what was tested and what was found.</p></div>'+
+  '</div></div>'+
+  '<div class="sec"><h2>Who we spoke with</h2><p class="lead">Everyone is named by role only. Thirteen people took part in total.</p><table class="tbl stack"><thead><tr><th>Role</th><th>Party</th><th>Format</th></tr></thead><tbody>'+
+   people.map(function(r){return '<tr><td class="lead-cell">'+r[0]+'</td><td class="m" data-l="Party">'+r[1]+'</td><td class="m" data-l="Format">'+r[2]+'</td></tr>'}).join('')+'</tbody></table></div>'+
+  '<div class="sec"><h2>How to read what we found</h2><dl class="defs">'+
+   '<dt>'+mkFor('trust')+'Trust</dt><dd>Whether the buyer can believe what they were promised. In off-the-plan property this carries the most risk, because buyers commit years before they see the finished home. Handover is always tagged Trust, since it is where the promise is tested in person.</dd>'+
+   '<dt>'+mkFor('conversion')+'Conversion</dt><dd>Whether interest becomes a signed contract. Most Conversion findings sit in enquiry and the sales experience.</dd>'+
+   '<dt>'+mkFor('loyalty')+'Loyalty</dt><dd>Whether owners return, recommend and buy again. Most Loyalty findings sit after settlement.</dd>'+
+   '<dt>Fix</dt><dd>Friction nobody should have to feel, such as a slow reply or a lost defect. It gets removed.</dd>'+
+   '<dt>Designed moment</dt><dd>Friction that comes with buying off the plan and can\u2019t be removed, such as the long wait or the defects inspection. It gets designed so it feels like Orchard Piper.</dd>'+
+   '<dt>Priority</dt><dd>Findings are ranked by commercial impact against effort. Where two sit level, the Trust finding goes first.</dd>'+
+  '</dl></div>'+
+  '<div class="sec"><h2>Out of scope</h2><ul class="plain"><li>Pricing, product mix and floor plans</li><li>Contract terms and legal documents</li><li>Build quality and engineering</li><li>Media spend and campaign performance</li></ul></div>'+
+  '<div class="sec"><h2>Limits worth knowing</h2><p class="body">Mystery enquiries and visits are a snapshot of one period. Each finding shows how many projects it was seen across, and anything seen on a single project should be checked before it is acted on portfolio-wide.</p></div>'+pn('method');
+}
+function pgJourney(){
+  return head(3,'A buyer passes through many hands before the keys.','Every touchpoint tested, placed in the lane of whoever delivers it, and how sure buyers felt along the way. Choose a touchpoint or a stage to see what we found there.')+
+   '<div class="sec">'+mapHtml()+'</div>'+pn('journey');
+}
+function pgWorking(){
+  var h=head(4,'What already holds, and should be protected.','Eleven things that work well today, grouped by stage. Each one says who holds it and how to keep it as the rest of the experience changes.');
+  STAGES.forEach(function(s){
+    var wl=W.filter(function(w){return w.s===s.k});if(!wl.length)return;
+    h+='<div class="stage-group"><h3>'+s.n+'<small>'+wl.length+'</small></h3>'+wl.map(winCard).join('')+'</div>';
+  });
+  return h+pn('working');
+}
+function pgFindings(){
+  return head(5,'Where the experience slips, and why it matters.','Every finding with the evidence behind it, the party who holds it, and a recommendation marked Fix or Designed moment. Use the filters to narrow the list, and the address bar keeps the view so it can be shared.')+
+   filtersHtml()+pn('findings');
+}
+function pgActions(){
+  var all=F.slice().sort(function(a,b){var pa=PRIORITY.indexOf(a.id),pb=PRIORITY.indexOf(b.id);pa=pa<0?99:pa;pb=pb<0?99:pb;return pa-pb||a.id-b.id});
+  var done=F.filter(function(f){return statusOf(f.id)==='done'}).length,prog=F.filter(function(f){return statusOf(f.id)==='prog'}).length;
+  return head(6,'Who does what, and by when.','The five priorities, where every finding sits on impact against effort, and one table of every action with its owner, due date and current status.')+
+   '<div class="sec"><h2>The five priorities</h2><div class="prio-grid"><div class="matrix">'+matrixSvg()+'</div><div>'+prioList()+'<p class="rule">Ranked by impact against effort. Where two sit level, the Trust finding goes first, because a buyer commits years before seeing the finished home. Oxblood dots are the priorities.</p></div></div></div>'+
+   '<div class="sec"><h2>Every action</h2><div class="checkin"><span>Status as at the monthly check-in, <strong>'+CHECKIN+'</strong>.</span><span>'+done+' done, '+prog+' in progress, '+(F.length-done-prog)+' not started.</span></div>'+
+   '<div class="skey" style="margin-bottom:12px"><span><i class="dot"></i>Not started</span><span><i class="dot prog"></i>In progress</span><span><i class="dot done"></i>Done</span></div>'+actionTable(all)+'</div>'+pn('actions');
+}
+function pgScorecard(){
+  return head(7,'Five measures, set now and read again in six months.','How the five measures stand at the audit, what each is measured from, and the target agreed with Orchard Piper. Switch to the review view to see how movement will be shown at six months.')+
+   '<div class="sec"><div class="toggle" role="group" aria-label="Scorecard view"><button type="button" aria-pressed="true" data-mode="audit">At audit</button><button type="button" aria-pressed="false" data-mode="review">At six-month review</button></div><div class="measures" id="measures">'+measuresHtml()+'</div>'+
+   '<div class="legend"><span><i class="dot" style="background:var(--canvas)"></i>At audit</span><span><i class="dot on"></i>At six months</span><span><i style="display:inline-block;width:2px;height:14px;background:var(--ink)"></i>Target</span></div></div>'+
+   '<div class="sec"><h2>At the six-month review</h2><p class="body">On Friday 7 May 2027 we read the five measures again, send a fresh round of mystery enquiries through the same agencies, and check every action against its date. Closed findings come off the list. Anything slipping moves up, with the reason written beside it.</p></div>'+pn('scorecard');
+}
+function partyNums(k){
+  return {tp:TP.filter(function(x){return x.p===k}).length,w:W.filter(function(x){return x.p===k}).length,f:F.filter(function(x){return x.p===k}).length};
+}
+function pgParties(){
+  return head(8,'One standard, held by five parties.','Each party has its own page holding only their touchpoints, strengths, findings and actions. Open one to read it, or copy its link to forward.')+
+   '<div class="sec"><div class="pcards">'+PARTIES.map(function(p){var n=partyNums(p.k);
+     return '<a class="pcard" href="#/party/'+p.k+'"><b>'+p.n+'</b><span class="nums"><span>'+n.tp+' touchpoints</span><span>'+n.w+' working well</span><span>'+n.f+' findings</span></span></a>'}).join('')+'</div></div>'+pn('parties');
+}
+function pgParty(k){
+  var p=PARTIES.filter(function(x){return x.k===k})[0];if(!p)return pgParties();
+  var n=partyNums(k),tps=TP.filter(function(x){return x.p===k}),wl=W.filter(function(x){return x.p===k}),fl=F.filter(function(x){return x.p===k});
+  var url=location.href.split('#')[0]+'#/party/'+k;
+  var tpHtml='<div class="tplist">'+tps.map(function(t){return '<div><span>'+tpMark(t)+esc(t.n)+'</span><small>'+stageName(t.s)+'</small></div>'}).join('')+'</div>';
+  var title=k==='orchard-piper'?'What Orchard Piper holds.':'What '+partyThe(k)+' holds.';
+  return '<p class="eyebrow">By party</p><h1>'+title+'</h1><div class="covers"><h2>What this page covers</h2><p>The part of the buyer journey delivered by '+partyThe(k)+', what already works, what needs attention, and the actions that follow. In the full audit each party receives this page as its own document.</p></div>'+
+   '<div class="share"><p>Link to this page</p><input id="shareUrl" type="text" readonly value="'+esc(url)+'" aria-label="Link to this page"><button class="btn" type="button" id="copyBtn">Copy link</button></div>'+
+   '<div class="pstrip"><div><b>'+n.tp+'</b><span>Touchpoints delivered</span></div><div><b>'+n.w+'</b><span>Working well</span></div><div><b>'+n.f+'</b><span>Findings</span></div><div><b>'+fl.filter(function(f){return PRIORITY.indexOf(f.id)>-1}).length+'</b><span>Priorities</span></div></div>'+
+   '<div class="sec"><h2>Touchpoints you deliver</h2>'+tpHtml+'<div class="legend"><span>'+mkFor('trust')+'Friction, Trust</span><span>'+mkFor('conversion')+'Conversion</span><span>'+mkFor('loyalty')+'Loyalty</span><span>'+HOLD+'Working well</span><span><i class="mk hd"></i>Nothing to report</span></div></div>'+
+   '<div class="sec"><h2>What you do well</h2>'+(wl.length?wl.map(winCard).join(''):'<p class="body">No strengths are recorded for this party.</p>')+'</div>'+
+   '<div class="sec"><h2>What needs attention</h2><div class="findings">'+(fl.length?fl.map(findingCard).join(''):'<p class="body">No findings are held by this party.</p>')+'</div></div>'+
+   '<div class="sec"><h2>Your actions</h2>'+actionTable(fl)+'</div>'+
+   '<nav class="pn"><a href="#/parties"><small>Back to</small><span>By party</span></a></nav>';
+}
+function pgResources(){
+  var gl=[['Touchpoint','Any moment where a buyer meets Orchard Piper or someone acting for it, from a hoarding to a resident request.'],
+    ['Party','The organisation that delivers a touchpoint. There are five, the selling agent, Orchard Piper, the development manager, the builder and building management.'],
+    ['Finding','A point where the experience falls short of the promise, backed by evidence and assigned to a party.'],
+    ['Working well','Something that already meets the standard and should be protected.'],
+    ['Trust, Conversion, Loyalty','What each finding puts at risk. Explained in full on How the audit was run.'],
+    ['Fix','A recommendation that removes avoidable friction.'],
+    ['Designed moment','A recommendation that turns unavoidable friction into something that feels like Orchard Piper.'],
+    ['Buyer confidence','How sure recent purchasers said they felt at each stage of the journey.']];
+  var tpl=[['Enquiry reply standard','How to answer a buyer\u2019s question in the first line, and who signs the reply.','Findings 4 and 6'],
+    ['Visit follow-up rhythm','What to send after a display suite visit, and when, over thirty days.','Finding 8'],
+    ['Change cutoff reminders','Wording and timing for the reminders at contract, 60 days and 14 days.','Finding 11'],
+    ['Construction update rhythm','A six-weekly update structure that works even when there is little news.','Finding 13'],
+    ['Delay protocol','Who tells whom, in what order and within what time, when a milestone moves.','Finding 14'],
+    ['Shared defects log','One log the purchaser can see, with an owner and close date for every item.','Finding 16'],
+    ['Handover in the residence','A checklist for handing over keys in the home itself.','Finding 18'],
+    ['Resident handover note','What Orchard Piper passes to the building manager at settlement.','Finding 19']];
+  var res=[['Buyer persona briefs','The two personas used for mystery enquiries and visits.'],
+    ['Touchpoint register','All 46 touchpoints with their party, what was tested and the result.'],
+    ['Enquiry test log','Every mystery enquiry with timestamps, replies and follow-ups.'],
+    ['Visit notes','Notes from each display suite visit and completed property inspection.'],
+    ['Interview guides','The questions used with stakeholders and with recent purchasers.']];
+  function rl(list,withRef){return '<div class="rlist">'+list.map(function(r){return '<div><b>'+r[0]+'</b><span class="inc">Included in the full audit</span><p>'+r[1]+(withRef?' Supports '+r[2].toLowerCase()+'.':'')+'</p></div>'}).join('')+'</div>'}
+  return head(9,'The terms, templates and research behind the audit.','What the words in this document mean, the templates that help teams act on the recommendations, and the research materials the findings rest on.')+
+   '<div class="sec"><h2>Glossary</h2><dl class="defs">'+gl.map(function(g){return '<dt>'+g[0]+'</dt><dd>'+g[1]+'</dd>'}).join('')+'</dl></div>'+
+   '<div class="sec"><h2>Templates</h2><p class="lead">Ready to adapt, each tied to the finding it supports.</p>'+rl(tpl,true)+'</div>'+
+   '<div class="sec"><h2>Research materials</h2><p class="lead">The evidence behind every finding, available on request to anyone working on an action.</p>'+rl(res,false)+'</div>'+
+   '<div class="sec"><h2>Questions</h2><p class="body">Questions about this document go to Carl Nav\u00e8 at Apertura CX, who updates it at each monthly check-in.</p></div>'+pn('resources');
+}
+
+/* ---------- Router ---------- */
+var current='';
+function parse(hs){
+  var h=(hs==null?location.hash:hs).replace(/^#\/?/,'');
+  if(/^party=/.test(h))h='party/'+h.split('=')[1].split('&')[0];
+  var q={},qi=h.indexOf('?');
+  if(qi>-1){h.slice(qi+1).split('&').forEach(function(p){var kv=p.split('=');q[kv[0]]=decodeURIComponent(kv[1]||'')});h=h.slice(0,qi)}
+  return {path:h||'overview',q:q};
+}
+function route(hs){
+  var r=parse(hs),path=r.path,html,key=path;
+  $('page').removeEventListener('click',mapClick);
+  if(path.indexOf('party/')===0){html=pgParty(path.slice(6));key='party/'+path.slice(6)}
+  else{
+    var fn={overview:pgOverview,method:pgMethod,journey:pgJourney,working:pgWorking,findings:pgFindings,actions:pgActions,scorecard:pgScorecard,parties:pgParties,resources:pgResources}[path];
+    if(!fn){fn=pgOverview;key='overview'}
+    html=fn();
+  }
+  $('page').innerHTML=html;
+  $('page').classList.toggle('wide',key==='journey');
+  var page=PAGES.filter(function(p){return p.k===key})[0];
+  var title=page?page.n:(key.indexOf('party/')===0?lbl(PARTIES,key.slice(6)):'Overview');
+  document.title=title+', Orchard Piper customer experience audit (illustrative sample)';
+  $('tbTitle').textContent=title;
+  Array.prototype.forEach.call(document.querySelectorAll('.nav a'),function(a){
+    var on=a.dataset.page===key||(key.indexOf('party/')===0&&a.dataset.page==='parties'&&false);
+    if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+  });
+  closeMenu();
+  if(key==='journey')bindMap();
+  if(key==='findings'){
+    fstate={party:'',stage:'',tag:'',life:''};
+    ['party','stage','tag','life'].forEach(function(k){if(r.q[k]&&OPTS[k].some(function(o){return o.k===r.q[k]}))fstate[k]=r.q[k]});
+    bindFindings();
+  }
+  if(key==='scorecard'){
+    Array.prototype.forEach.call(document.querySelectorAll('.toggle button'),function(b){
+      b.addEventListener('click',function(){mode=b.dataset.mode;Array.prototype.forEach.call(document.querySelectorAll('.toggle button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});$('measures').innerHTML=measuresHtml()});
+    });
+    mode='audit';
+  }
+  if($('copyBtn'))$('copyBtn').addEventListener('click',function(){
+    var inp=$('shareUrl'),btn=this;function ok(){btn.textContent='Link copied'}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(inp.value).then(ok,function(){inp.select();try{document.execCommand('copy');ok()}catch(e){}});
+    else{inp.select();try{document.execCommand('copy');ok()}catch(e){}}
+  });
+  var target=r.q.f?$('f'+r.q.f):(r.q.w?$('w'+r.q.w):null);
+  if(target){setTimeout(function(){target.scrollIntoView({block:'start'});target.classList.add('flash')},20)}
+  else window.scrollTo(0,0);
+  if(!target)$('main').focus({preventScroll:true});
+}
+function go(h){
+  try{history.pushState(null,'','#/'+h)}catch(e){}
+  current=h;route('#/'+h);
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a');if(!a)return;
+  var href=a.getAttribute('href')||a.getAttribute('xlink:href')||'';
+  if(href.indexOf('#/')!==0)return;
+  if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;
+  e.preventDefault();go(href.slice(2));
+});
+window.addEventListener('hashchange',function(){route()});
+window.addEventListener('popstate',function(){route()});
+route();
+})();
+</script>
+</body>
+</html>
